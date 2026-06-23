@@ -635,9 +635,10 @@ body {
 function revealPhone() {
   const btn = document.getElementById('phoneBtn');
   const text = document.getElementById('phoneText');
-  btn.classList.add('revealed');
-  btn.onclick = null;
-  text.textContent = '19579475667（微信同号）';
+  const revealed = btn.classList.toggle('revealed');
+  text.textContent = revealed
+    ? '19579475667（微信同号）'
+    : '📱 点击查看手机号 / 微信';
 }
 
 // Page switching
