@@ -159,6 +159,11 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .cert-thumb:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(27,40,56,.08)}
 .cert-thumb img{width:100%;height:180px;object-fit:cover;display:block}
 .cert-thumb .cert-label{font-size:.7rem;color:var(--muted);padding:6px 8px;text-align:center;line-height:1.3}
+.cert-thumb-pdf{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:180px;background:var(--accent-bg);color:var(--accent);
+  text-decoration:none;gap:8px;font-size:.78rem;text-align:center;padding:12px;
+}
 /* Cert lightbox */
 .cert-lightbox{
   position:fixed;inset:0;z-index:3000;background:rgba(27,40,56,.85);
@@ -324,7 +329,20 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
             <div class="cert-thumb" onclick="openCert('certs/全国总决赛_软件赛_C++A组_三等奖_葛程荣_1701010751_2946658.jpg')"><img src="certs/全国总决赛_软件赛_C++A组_三等奖_葛程荣_1701010751_2946658.jpg" alt="蓝桥杯国三" loading="lazy"><div class="cert-label">蓝桥杯 全国三等奖</div></div>
             <div class="cert-thumb" onclick="openCert('certs/B类证书_第十八届大学生iCAN创新创业大赛.jpg')"><img src="certs/B类证书_第十八届大学生iCAN创新创业大赛.jpg" alt="iCAN" loading="lazy"><div class="cert-label">iCAN 江西一等奖</div></div>
             <div class="cert-thumb" onclick="openCert('certs/B类证书_第九届全国大学生集成电路创新创业大赛.jpg')"><img src="certs/B类证书_第九届全国大学生集成电路创新创业大赛.jpg" alt="集成电路" loading="lazy"><div class="cert-label">集成电路 华中三等奖</div></div>
+            <div class="cert-thumb" onclick="openCert('certs/嵌入式FPGA竞赛.png')"><img src="certs/嵌入式FPGA竞赛.png" alt="FPGA竞赛" loading="lazy"><div class="cert-label">嵌入式FPGA竞赛 全国三等奖</div></div>
             <div class="cert-thumb" onclick="openCert('certs/C类证书_第十六届全国大学生数学竞赛（非数A）.jpg')"><img src="certs/C类证书_第十六届全国大学生数学竞赛（非数A）.jpg" alt="数学竞赛" loading="lazy"><div class="cert-label">数学竞赛 一等奖</div></div>
+            <a class="cert-thumb cert-thumb-pdf" href="certs/2025AIC算法巅峰赛第三赛季国三.pdf" target="_blank">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div class="cert-label">AIC算法巅峰赛 国三</div>
+            </a>
+            <a class="cert-thumb cert-thumb-pdf" href="certs/B类证书_第二十届智能汽车竞赛.pdf" target="_blank">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div class="cert-label">智能汽车竞赛 分区三等奖</div>
+            </a>
+            <a class="cert-thumb cert-thumb-pdf" href="certs/B类证书_高教社杯数学建模.pdf" target="_blank">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div class="cert-label">数学建模 省级三等奖</div>
+            </a>
           </div>
           <button class="collapse-btn" onclick="event.stopPropagation();toggleCard(document.getElementById('cert-card'))">收起 ▲</button>
         </div>
