@@ -1,1 +1,456 @@
-葛程荣
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="葛程荣 — 南昌大学人工智能专业，AI × 嵌入式系统探索者。GPA 3.75，专业排名 1/35。">
+<title>葛程荣 · 个人主页</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===== Reset & Tokens ===== */
+:root {
+  --bg-page: #FAF8F5;
+  --bg-card: #FFFFFF;
+  --text-primary: #1B2838;
+  --text-secondary: #5A6978;
+  --accent: #2D8B7A;
+  --accent-subtle: #E8F2EF;
+  --border: #E5E0D8;
+  --border-light: #F0ECE5;
+  --font-display: 'Playfair Display', 'Noto Serif SC', 'STSong', serif;
+  --font-body: 'Inter', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --radius: 6px;
+  --shadow-card: 0 1px 3px rgba(27,40,56,0.06), 0 1px 2px rgba(27,40,56,0.04);
+  --shadow-card-hover: 0 4px 16px rgba(27,40,56,0.08);
+  --transition: 0.25s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Nav ===== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(12px);
+  background: rgba(250,248,245,0.85);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 52px;
+}
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-icon {
+  width: 18px; height: 18px; fill: currentColor;
+  vertical-align: -3px;
+}
+
+/* ===== Layout ===== */
+.main { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+
+/* ===== Hero Card ===== */
+.hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 40px 36px;
+  margin-bottom: 32px;
+  display: flex; align-items: center; gap: 40px;
+  box-shadow: var(--shadow-card);
+}
+.hero-photo {
+  width: 130px; height: 170px; object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.hero-info { flex: 1; min-width: 0; }
+.hero-name-zh {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.hero-name-en {
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 400; font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.hero-divider {
+  width: 48px; height: 2px; background: var(--accent);
+  margin: 12px 0;
+}
+.hero-school {
+  font-size: 1rem; color: var(--text-primary); font-weight: 500;
+  margin-bottom: 4px;
+}
+.hero-tagline {
+  font-size: 0.92rem; color: var(--text-secondary);
+}
+.hero-citation {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 5px 12px;
+  background: var(--accent-subtle);
+  border-radius: 3px;
+  font-family: var(--font-display);
+  font-style: italic; font-size: 0.88rem;
+  color: var(--accent);
+}
+.hero-stats { display: flex; gap: 32px; margin-top: 16px; }
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.hero-stat-label {
+  font-size: 0.75rem; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ===== Cards ===== */
+.section-header {
+  font-family: var(--font-display);
+  font-size: 1.35rem; font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-card-hover); }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.12rem; font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.card-subtitle {
+  font-size: 0.82rem; color: var(--accent);
+  font-weight: 500; margin-bottom: 4px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.card-text { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; }
+.card-text + .card-text { margin-top: 6px; }
+
+/* ===== Grid ===== */
+.grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-bottom: 20px;
+}
+.grid-full { margin-bottom: 20px; }
+
+/* ===== Tags ===== */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  font-size: 0.78rem; font-weight: 500;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ===== Honors list ===== */
+.honor-list { list-style: none; }
+.honor-list li {
+  position: relative; padding-left: 18px;
+  font-size: 0.9rem; color: var(--text-secondary);
+  line-height: 1.7;
+}
+.honor-list li::before {
+  content: '·'; position: absolute; left: 4px;
+  color: var(--accent); font-weight: 700; font-size: 1.2rem;
+  line-height: 1.55;
+}
+
+/* ===== Contact ===== */
+.contact-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 20px;
+}
+.contact-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+.contact-item:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card-hover);
+}
+.contact-icon {
+  width: 20px; height: 20px; flex-shrink: 0;
+  color: var(--accent);
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center; padding: 32px 24px;
+  font-size: 0.8rem; color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+}
+.footer .citation {
+  font-family: var(--font-display);
+  font-style: italic; color: var(--accent);
+  font-size: 0.88rem;
+}
+
+/* ===== Animation ===== */
+.fade-in {
+  opacity: 0; transform: translateY(16px);
+  animation: fadeUp 0.6s ease forwards;
+}
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.12s; }
+.fade-in:nth-child(3) { animation-delay: 0.19s; }
+.fade-in:nth-child(4) { animation-delay: 0.26s; }
+.fade-in:nth-child(5) { animation-delay: 0.33s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { animation: none; opacity: 1; transform: none; }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero-card { flex-direction: column; text-align: center; padding: 32px 20px 28px; gap: 20px; }
+  .hero-photo { width: 100px; height: 130px; }
+  .hero-stats { justify-content: center; }
+  .hero-divider { margin: 12px auto; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 12px; }
+  .hero-name-zh { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .main { padding: 20px 12px 40px; }
+  .card { padding: 20px 16px 18px; }
+  .hero-card { padding: 24px 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Ge ChengRong</a>
+    <div class="nav-links">
+      <a href="#edu">教育</a>
+      <a href="#research">科研</a>
+      <a href="#projects">项目</a>
+      <a href="#honors">荣誉</a>
+      <a href="#contact">联系</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Main ===== -->
+<main class="main">
+
+  <!-- Hero Card -->
+  <section class="hero-card fade-in">
+    <img class="hero-photo" src="photo.jpg" alt="葛程荣证件照" width="130" height="170" loading="eager">
+    <div class="hero-info">
+      <div class="hero-name-zh">葛程荣</div>
+      <div class="hero-name-en">Ge ChengRong</div>
+      <div class="hero-divider"></div>
+      <div class="hero-school">南昌大学 · 信息工程学院 · 人工智能专业</div>
+      <div class="hero-tagline">AI × 嵌入式系统 | 端侧感知 | Agent / LLM 应用</div>
+      <div class="hero-citation">Ge C. — AI × Embedded Systems Explorer, Nanchang University</div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">3.75<span style="font-size:0.7em">/4.0</span></div>
+          <div class="hero-stat-label">GPA</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">1<span style="font-size:0.55em">/35</span></div>
+          <div class="hero-stat-label">专业排名</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">10+</div>
+          <div class="hero-stat-label">竞赛获奖</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Research -->
+  <div class="grid-2">
+    <!-- Education -->
+    <section id="edu" class="card fade-in">
+      <div class="card-subtitle">Education</div>
+      <div class="card-title">教育背景</div>
+      <p class="card-text">
+        <strong>南昌大学 · 人工智能</strong><br>
+        2023.09 – 2027.06（预计）<br>
+        GPA 3.75 / 4.0 · 专业排名 1 / 35<br>
+        CET-4 476 · CET-6 423
+      </p>
+      <p class="card-text" style="margin-top:10px;">
+        <strong>荣誉</strong>：连续两年校级特等奖学金、三好学生标兵、泰豪之星·优秀大学生提名奖、五四优秀共青团员
+      </p>
+      <div class="tags">
+        <span class="tag">机器学习</span>
+        <span class="tag">计算机视觉</span>
+        <span class="tag">数据结构与算法</span>
+        <span class="tag">操作系统</span>
+        <span class="tag">嵌入式实时系统</span>
+        <span class="tag">数字信号处理</span>
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research" class="card fade-in">
+      <div class="card-subtitle">Research</div>
+      <div class="card-title">科研经历</div>
+      <p class="card-text">
+        <strong>省级大创：AI 微波滤波器设计</strong><br>
+        项目负责人 · Python / PyTorch / HFSS<br>
+        探索深度学习替代全波仿真，构建滤波器参数预测与优化流程，负责建模、数据整理与优化分析。
+      </p>
+      <p class="card-text" style="margin-top:8px;">
+        <strong>可重构多模式柔性 ISAC 天线</strong><br>
+        拟投 IEEE Internet of Things Journal<br>
+        设计三角环型柔性贴片天线，4 种频率可重构模式，覆盖 BDS / WLAN / WiMAX 频段。
+      </p>
+      <div class="tags">
+        <span class="tag">HFSS</span>
+        <span class="tag">Origin</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">MATLAB</span>
+        <span class="tag">电磁仿真</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Core Projects -->
+  <div class="grid-full">
+    <section id="projects" class="card fade-in">
+      <div class="card-subtitle">Projects</div>
+      <div class="card-title">核心项目</div>
+
+      <p class="card-text" style="margin-top:10px;">
+        <strong>FPGA-RK3568 异构架构端侧智能交通系统</strong><br>
+        盘古 50K FPGA · 正点原子 RK3568 · PCIe DMA · YOLO · OCR · Linux<br>
+        FPGA 端图像采集与 YOLO 推理加速，通过 PCIe DMA 传输至 RK3568 完成后处理与违规判断。重点攻克 PCIe 数据链路、DMA 读写一致性、多模型部署与系统联调。
+      </p>
+      <div class="tags">
+        <span class="tag">FPGA</span>
+        <span class="tag">RK3568</span>
+        <span class="tag">PCIe DMA</span>
+        <span class="tag">YOLO</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Verilog</span>
+      </div>
+
+      <p class="card-text" style="margin-top:16px;">
+        <strong>面向 Android 环境的视觉强化学习智能体训练系统</strong><br>
+        PPO · 行为克隆 · Android ADB · CNN<br>
+        构建跑酷游戏 AI 训练系统：minicap 截屏 ~20ms/帧，FastTouch 注入 ~5ms，行为克隆准确率 82%+，PPO 平均奖励从 -10.0 提升至 10.89。
+      </p>
+      <div class="tags">
+        <span class="tag">PPO</span>
+        <span class="tag">CNN</span>
+        <span class="tag">行为克隆</span>
+        <span class="tag">ADB</span>
+        <span class="tag">强化学习</span>
+        <span class="tag">Python</span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Honors -->
+  <div class="grid-full">
+    <section id="honors" class="card fade-in">
+      <div class="card-subtitle">Honors & Awards</div>
+      <div class="card-title">竞赛与荣誉</div>
+      <ul class="honor-list" style="margin-top:8px;">
+        <li>RAICOM 机器人开发者大赛 <strong>全国总决赛二等奖</strong></li>
+        <li>蓝桥杯 C/C++ 大学 A 组 <strong>省一等奖、全国三等奖</strong></li>
+        <li>全国大学生嵌入式芯片与系统设计竞赛 FPGA 赛道 <strong>全国三等奖</strong></li>
+        <li>iCAN 大学生创新创业大赛 <strong>江西赛区一等奖</strong></li>
+        <li>全国大学生集成电路创新创业大赛 <strong>华中赛区三等奖</strong></li>
+        <li>全国大学生智能汽车竞赛 <strong>分区三等奖</strong></li>
+        <li>全球校园人工智能算法精英大赛 <strong>国家级三等奖</strong></li>
+        <li>全国大学生数学竞赛 非数学 A 类 <strong>一等奖</strong></li>
+        <li>全国大学生数学建模竞赛 <strong>省级三等奖</strong></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Contact -->
+  <div class="grid-full" id="contact">
+    <section class="card fade-in">
+      <div class="card-subtitle">Contact</div>
+      <div class="card-title">联系方式</div>
+      <div class="contact-grid" style="margin-top:12px;">
+        <a href="mailto:gechengrong163@163.com" class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          gechengrong163@163.com
+        </a>
+        <a href="https://github.com/Blankname-12" class="contact-item" target="_blank" rel="noopener">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+          Blankname-12
+        </a>
+        <div class="contact-item">
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+          19579475667（微信同号）
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <p class="citation">Ge C. — AI × Embedded Systems Explorer, Nanchang University</p>
+  <p style="margin-top:4px;">© 2025 Ge ChengRong. Built with care.</p>
+</footer>
+
+</body>
+</html>
