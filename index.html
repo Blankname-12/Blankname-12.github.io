@@ -222,6 +222,29 @@ body {
   color: var(--accent);
 }
 
+/* Phone reveal */
+.phone-reveal {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--accent);
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+.phone-reveal:hover {
+  background: var(--accent-subtle);
+  border-style: solid;
+}
+.phone-reveal.revealed {
+  border-style: solid;
+  color: var(--text-primary);
+  cursor: default;
+}
+
 /* ===== Footer ===== */
 .footer {
   text-align: center; padding: 32px 24px;
@@ -255,20 +278,99 @@ body {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .hero-card { flex-direction: column; text-align: center; padding: 32px 20px 28px; gap: 20px; }
-  .hero-photo { width: 100px; height: 130px; }
-  .hero-stats { justify-content: center; }
+  html { font-size: 15px; }
+
+  .nav { padding: 0 16px; }
+  .nav-inner { height: 48px; }
+  .nav-name { font-size: 1rem; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 0.8rem; }
+
+  .main { padding: 24px 16px 48px; }
+
+  .hero-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 20px 28px;
+    gap: 24px;
+  }
+  .hero-photo { width: 96px; height: 126px; }
+  .hero-name-zh { font-size: 2rem; }
+  .hero-name-en { font-size: 0.95rem; }
+  .hero-school { font-size: 0.9rem; }
+  .hero-tagline { font-size: 0.85rem; }
+  .hero-citation { font-size: 0.8rem; }
+  .hero-stats { justify-content: center; gap: 24px; }
+  .hero-stat-num { font-size: 1.4rem; }
+  .hero-stat-label { font-size: 0.7rem; }
   .hero-divider { margin: 12px auto; }
-  .grid-2 { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .nav-links { gap: 12px; }
-  .hero-name-zh { font-size: 1.8rem; }
+
+  .grid-2 { grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-full { margin-bottom: 16px; }
+
+  .card { padding: 22px 18px 20px; }
+  .card-title { font-size: 1.05rem; }
+  .card-subtitle { font-size: 0.75rem; }
+  .card-text { font-size: 0.88rem; }
+
+  .contact-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .contact-item { padding: 14px; font-size: 0.85rem; }
+  .phone-reveal { padding: 14px; font-size: 0.85rem; }
+
+  .honor-list li { font-size: 0.85rem; padding-left: 16px; }
+  .tag { font-size: 0.73rem; padding: 2px 8px; }
+
+  .footer { padding: 24px 16px; }
 }
 
 @media (max-width: 480px) {
-  .main { padding: 20px 12px 40px; }
-  .card { padding: 20px 16px 18px; }
-  .hero-card { padding: 24px 16px 20px; }
+  html { font-size: 14px; }
+
+  .nav { padding: 0 10px; }
+  .nav-inner { height: 44px; }
+  .nav-name { font-size: 0.9rem; }
+  .nav-links { gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-links a { font-size: 0.75rem; white-space: nowrap; }
+
+  .main { padding: 16px 10px 36px; }
+
+  .hero-card {
+    padding: 24px 14px 20px;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .hero-photo { width: 80px; height: 105px; }
+  .hero-name-zh { font-size: 1.6rem; }
+  .hero-name-en { font-size: 0.82rem; }
+  .hero-school { font-size: 0.8rem; }
+  .hero-tagline { font-size: 0.78rem; }
+  .hero-citation { font-size: 0.72rem; padding: 4px 10px; }
+  .hero-stats { gap: 18px; margin-top: 12px; }
+  .hero-stat-num { font-size: 1.2rem; }
+  .hero-stat-label { font-size: 0.65rem; }
+
+  .card { padding: 18px 14px 16px; border-radius: 4px; }
+  .card-title { font-size: 1rem; margin-bottom: 8px; }
+  .card-subtitle { font-size: 0.7rem; letter-spacing: 0.04em; }
+  .card-text { font-size: 0.84rem; line-height: 1.6; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 10px; }
+  .contact-item, .phone-reveal {
+    padding: 12px 14px; font-size: 0.82rem;
+    min-height: 44px; /* touch target */
+  }
+
+  .honor-list li {
+    font-size: 0.82rem; line-height: 1.6;
+    padding: 4px 0 4px 14px;
+  }
+  .honor-list li::before { font-size: 1rem; left: 2px; }
+
+  .tags { gap: 6px; margin-top: 10px; }
+  .tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 2px; }
+
+  .footer { padding: 20px 12px; font-size: 0.72rem; }
+  .footer .citation { font-size: 0.78rem; }
 }
 </style>
 </head>
@@ -436,10 +538,10 @@ body {
           <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
           Blankname-12
         </a>
-        <div class="contact-item">
+        <button class="phone-reveal" id="phoneBtn" onclick="revealPhone()" title="点击查看手机号">
           <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-          19579475667（微信同号）
-        </div>
+          <span id="phoneText">📱 点击查看手机号 / 微信</span>
+        </button>
       </div>
     </section>
   </div>
@@ -451,6 +553,16 @@ body {
   <p class="citation">Ge C. — AI × Embedded Systems Explorer, Nanchang University</p>
   <p style="margin-top:4px;">© 2025 Ge ChengRong. Built with care.</p>
 </footer>
+
+<script>
+function revealPhone() {
+  const btn = document.getElementById('phoneBtn');
+  const text = document.getElementById('phoneText');
+  btn.classList.add('revealed');
+  btn.onclick = null;
+  text.textContent = '19579475667（微信同号）';
+}
+</script>
 
 </body>
 </html>
