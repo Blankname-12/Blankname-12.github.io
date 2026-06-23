@@ -9,655 +9,896 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-/* ===== Reset & Tokens ===== */
+/* ===== Tokens ===== */
 :root {
   --bg: #FAF8F5;
-  --card-bg: #FFFFFF;
+  --card: #FFFFFF;
   --text: #1B2838;
-  --text-muted: #5A6978;
+  --muted: #5A6978;
   --accent: #2D8B7A;
-  --accent-light: #E8F2EF;
+  --accent-bg: #E8F2EF;
   --border: #E5E0D8;
   --font-display: 'Playfair Display', 'Noto Serif SC', serif;
   --font-body: 'Inter', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --nav-h: 50px;
   --radius: 8px;
-  --shadow: 0 2px 12px rgba(27,40,56,0.06);
-  --nav-h: 56px;
-  --transition: 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
-
-body {
-  font-family: var(--font-body);
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-body); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 
 /* ===== Nav ===== */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(250,248,245,0.88);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  background: rgba(250,248,245,0.9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   height: var(--nav-h);
 }
 .nav-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center;
-  height: 100%;
-  padding: 0 24px;
-  gap: 8px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; height: 100%;
+  padding: 0 20px; gap: 4px;
+  overflow-x: auto; scrollbar-width: none;
 }
 .nav-inner::-webkit-scrollbar { display: none; }
-.nav-item {
-  flex-shrink: 0;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 0.85rem; font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
+.nav-tab {
+  flex-shrink: 0; padding: 7px 16px;
+  border-radius: 18px; font-size: 0.84rem; font-weight: 500;
+  color: var(--muted); cursor: pointer;
   border: none; background: none;
   font-family: var(--font-body);
-  transition: all 0.25s ease;
-  white-space: nowrap;
+  transition: all 0.22s ease; white-space: nowrap;
 }
-.nav-item:hover { color: var(--text); background: var(--accent-light); }
-.nav-item.active {
-  color: var(--accent);
-  background: var(--accent-light);
-  font-weight: 600;
-}
+.nav-tab:hover { color: var(--text); background: var(--accent-bg); }
+.nav-tab.active { color: var(--accent); background: var(--accent-bg); font-weight: 600; }
 
-/* ===== Page Switcher ===== */
-.pages {
-  position: relative;
-  min-height: 100vh;
-  padding-top: var(--nav-h);
-}
+/* ===== Pages ===== */
+.pages { position: relative; min-height: 100vh; padding-top: var(--nav-h); }
 .page {
   position: absolute; top: 0; left: 0; right: 0;
-  min-height: 100vh;
-  padding: calc(var(--nav-h) + 32px) 24px 64px;
-  opacity: 0; pointer-events: none;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  display: flex; flex-direction: column; align-items: center;
+  min-height: 100vh; padding: calc(var(--nav-h) + 28px) 20px 56px;
+  opacity: 0; pointer-events: none; transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.page.active {
-  opacity: 1; pointer-events: auto;
-  transform: translateY(0);
-}
+.page.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.page-inner { max-width: 960px; margin: 0 auto; }
 
-/* ===== Poster Common ===== */
-.poster {
-  width: 100%; max-width: 960px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 48px 44px 40px;
-  box-shadow: var(--shadow);
-  position: relative; overflow: hidden;
+/* ===== Cards ===== */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px 26px;
+  box-shadow: 0 1px 4px rgba(27,40,56,0.04);
+  cursor: pointer; transition: all 0.22s ease;
 }
+.card:hover { border-color: var(--accent); box-shadow: 0 3px 14px rgba(27,40,56,0.07); }
+.card-title {
+  font-family: var(--font-display); font-size: 1.08rem; font-weight: 600;
+  color: var(--text); margin-bottom: 2px;
+}
+.card-sub {
+  font-size: 0.8rem; color: var(--accent); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.card-desc {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.55;
+  margin-top: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+/* ===== Detail Poster Overlay ===== */
+.poster-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(27,40,56,0.5);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.poster-overlay.open { opacity: 1; pointer-events: auto; }
+.poster-panel {
+  background: var(--card); border-radius: 12px;
+  width: 100%; max-width: 800px; max-height: 88vh;
+  overflow-y: auto; padding: 36px 32px 28px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(27,40,56,0.18);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.poster-overlay.open .poster-panel { transform: translateY(0) scale(1); }
+.poster-close {
+  position: sticky; top: 0; float: right;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--card);
+  font-size: 1.1rem; color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease; z-index: 10;
+}
+.poster-close:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 .poster-eyebrow {
-  font-size: 0.72rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--accent);
-  margin-bottom: 8px;
-  font-family: var(--font-body);
+  font-size: 0.7rem; font-weight: 600; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
 }
 .poster-title {
-  font-family: var(--font-display);
-  font-size: 2.2rem; font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-  margin-bottom: 6px;
+  font-family: var(--font-display); font-size: 1.8rem; font-weight: 700;
+  color: var(--text); line-height: 1.2; margin-bottom: 4px;
 }
 .poster-sub {
-  font-family: var(--font-display);
-  font-style: italic; font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-bottom: 20px;
+  font-family: var(--font-display); font-style: italic; font-size: 0.95rem;
+  color: var(--muted); margin-bottom: 14px;
 }
 .poster-divider {
-  width: 56px; height: 3px; background: var(--accent);
-  margin-bottom: 24px; border-radius: 2px;
+  width: 48px; height: 2.5px; background: var(--accent);
+  border-radius: 2px; margin-bottom: 18px;
 }
 
-/* ===== Hero Poster ===== */
-.hero-layout {
-  display: flex; gap: 36px; align-items: center;
+/* Poster sections */
+.poster-section { margin-top: 20px; }
+.poster-section h4 {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+  color: var(--text); margin-bottom: 8px;
 }
-.hero-photo {
-  width: 140px; height: 184px;
-  object-fit: cover; border-radius: 6px;
-  flex-shrink: 0;
+.poster-section p {
+  font-size: 0.9rem; color: var(--muted); line-height: 1.7;
 }
+.img-placeholder {
+  background: var(--accent-bg); border: 1px dashed var(--accent);
+  border-radius: 8px; padding: 28px; text-align: center;
+  color: var(--accent); font-size: 0.85rem;
+  margin-top: 12px;
+  min-height: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+.framework-box {
+  background: #FAFBFC; border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px 24px; margin-top: 10px;
+  font-family: 'Courier New', monospace; font-size: 0.82rem;
+  color: var(--muted); line-height: 1.7; white-space: pre;
+}
+
+/* ===== Hero (基础信息) ===== */
+.hero-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 30px;
+  box-shadow: 0 1px 6px rgba(27,40,56,0.05);
+  display: flex; gap: 28px; align-items: flex-start;
+  margin-bottom: 24px;
+}
+.hero-photo { width: 110px; height: 144px; object-fit: cover; border-radius: 5px; flex-shrink: 0; }
 .hero-body { flex: 1; min-width: 0; }
-.hero-stats-row { display: flex; gap: 36px; margin: 20px 0 16px; }
-.hero-stat {
-  text-align: left;
+.hero-name { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--text); }
+.hero-en { font-family: var(--font-display); font-style: italic; font-size: 0.95rem; color: var(--muted); }
+.hero-line { width: 40px; height: 2.5px; background: var(--accent); border-radius: 2px; margin: 10px 0; }
+.hero-info { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin: 18px 0;
 }
-.hero-stat-val {
-  font-family: var(--font-display);
-  font-size: 2rem; font-weight: 700; color: var(--accent);
-  line-height: 1.1;
+.stat-item {
+  background: var(--accent-bg); border-radius: 6px;
+  padding: 14px 12px; text-align: center;
 }
-.hero-stat-unit { font-size: 0.5em; font-weight: 400; color: var(--text-muted); }
-.hero-stat-lbl {
-  font-size: 0.72rem; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  margin-top: 2px;
+.stat-val { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); line-height: 1.1; }
+.stat-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.info-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 22px;
+  box-shadow: 0 1px 4px rgba(27,40,56,0.04);
 }
-.citation-badge {
-  display: inline-block; padding: 6px 14px;
-  background: var(--accent-light);
-  border-radius: 4px;
-  font-family: var(--font-display);
-  font-style: italic; font-size: 0.9rem;
-  color: var(--accent);
-  margin-top: 10px;
+.info-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.info-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+.honor-list { list-style: none; }
+.honor-list li {
+  font-size: 0.84rem; color: var(--muted); line-height: 1.65;
+  padding: 2px 0 2px 14px; position: relative;
+}
+.honor-list li::before {
+  content: '·'; position: absolute; left: 0;
+  color: var(--accent); font-weight: 700; font-size: 1.1rem; line-height: 1.45;
+}
+.honor-list li strong { color: var(--text); }
+
+/* Section label */
+.section-label {
+  font-size: 0.7rem; font-weight: 600; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
 }
 
-/* ===== Project Poster Common ===== */
-.metrics-row {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  margin: 20px 0 18px;
+/* ===== Project/Research list ===== */
+.item-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
 }
-.metric-card {
-  flex: 1; min-width: 120px;
-  padding: 16px 18px;
-  background: var(--accent-light);
-  border-radius: 8px;
-  text-align: center;
+.item-grid.single { grid-template-columns: 1fr; }
+
+/* ===== Contact ===== */
+.contact-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.contact-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 18px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  text-decoration: none; color: var(--text); font-size: 0.88rem;
+  transition: all 0.2s ease; background: var(--card);
 }
-.metric-val {
-  font-family: var(--font-display);
-  font-size: 1.5rem; font-weight: 700; color: var(--accent);
-  line-height: 1.2;
+.contact-link:hover { border-color: var(--accent); background: var(--accent-bg); }
+.contact-link svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+.phone-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 18px;
+  border: 1px dashed var(--accent); border-radius: var(--radius);
+  background: none; cursor: pointer; font-size: 0.88rem;
+  color: var(--accent); font-family: var(--font-body);
+  transition: all 0.2s ease;
 }
-.metric-lbl {
-  font-size: 0.72rem; color: var(--text-muted);
-  text-transform: uppercase; letter-spacing: 0.06em;
-  margin-top: 2px;
-}
-.desc-block {
-  font-size: 0.95rem; line-height: 1.7; color: var(--text-muted);
-  max-width: 760px;
-}
-.tags-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.tag-pill {
-  padding: 4px 12px;
-  background: var(--accent-light); color: var(--accent);
-  font-size: 0.78rem; font-weight: 500;
-  border-radius: 20px;
+.phone-btn:hover { background: var(--accent-bg); border-style: solid; }
+.phone-btn.revealed { border-style: solid; color: var(--text); cursor: default; }
+.phone-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.citation { font-family: var(--font-display); font-style: italic; color: var(--accent); font-size: 0.88rem; text-align: center; margin-top: 18px; }
+
+/* ===== Tags ===== */
+.tag {
+  display: inline-block; padding: 3px 9px;
+  background: var(--accent-bg); color: var(--accent);
+  font-size: 0.73rem; font-weight: 500; border-radius: 12px;
   white-space: nowrap;
 }
 
-/* ===== Visual: ISAC wave ===== */
-.isac-wave {
-  position: absolute; top: 0; right: 0; width: 240px; height: 100%;
-  opacity: 0.06; pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent, transparent 3px,
-    var(--accent) 3px, var(--accent) 4px
-  );
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-}
-.isac-radar {
-  position: absolute; top: 30px; right: 40px;
-  width: 160px; height: 160px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  opacity: 0.08; pointer-events: none;
-}
-.isac-radar::after {
-  content: '';
-  position: absolute; top: 50%; left: 50%;
-  width: 2px; height: 50%;
-  background: var(--accent);
-  transform-origin: bottom center;
-  animation: radarSpin 4s linear infinite;
-}
-@keyframes radarSpin { to { transform: rotate(360deg); } }
-
-/* ===== Visual: FPGA circuit ===== */
-.fpga-grid {
-  position: absolute; top: 0; right: 0; width: 260px; height: 100%;
-  opacity: 0.05; pointer-events: none;
-  background-image:
-    linear-gradient(var(--accent) 1px, transparent 1px),
-    linear-gradient(90deg, var(--accent) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-.fpga-chip {
-  position: absolute; top: 36px; right: 60px;
-  width: 80px; height: 80px;
-  border: 1.5px solid var(--accent);
-  border-radius: 6px;
-  opacity: 0.1; pointer-events: none;
-}
-.fpga-chip::after {
-  content: '';
-  position: absolute; inset: 6px;
-  border: 1px solid var(--accent);
-  border-radius: 3px;
-}
-
-/* ===== Visual: PPO network ===== */
-.ppo-nodes {
-  position: absolute; top: 20px; right: 40px; width: 200px; height: 200px;
-  opacity: 0.08; pointer-events: none;
-}
-.ppo-dot {
-  position: absolute;
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-/* ===== Visual: Filter response ===== */
-.filter-bars {
-  position: absolute; top: 0; right: 0; width: 200px; height: 100%;
-  display: flex; align-items: flex-end; gap: 10px;
-  padding: 30px 30px 30px 0;
-  opacity: 0.07; pointer-events: none;
-}
-.filter-bar {
-  flex: 1;
-  background: var(--accent);
-  border-radius: 4px 4px 0 0;
-}
-
-/* ===== Contact Poster ===== */
-.contact-links {
-  display: flex; gap: 16px; flex-wrap: wrap;
-  margin-top: 10px;
-}
-.contact-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 20px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  text-decoration: none; color: var(--text);
-  font-size: 0.92rem; transition: all 0.25s ease;
-  background: var(--card-bg);
-}
-.contact-link:hover { border-color: var(--accent); background: var(--accent-light); }
-.contact-link svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
-
-.phone-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 20px;
-  border: 1px dashed var(--accent); border-radius: 8px;
-  background: none; cursor: pointer;
-  font-size: 0.92rem; color: var(--accent);
-  font-family: var(--font-body);
-  transition: all 0.25s ease;
-}
-.phone-btn:hover { background: var(--accent-light); border-style: solid; }
-.phone-btn.revealed { border-style: solid; color: var(--text); cursor: default; }
+/* ===== Footer ===== */
+.footer { text-align: center; padding: 20px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   html { font-size: 15px; }
-  .nav-inner { padding: 0 16px; gap: 4px; }
-  .nav-item { padding: 7px 14px; font-size: 0.78rem; }
-  .poster { padding: 32px 22px 28px; border-radius: 10px; }
-  .poster-title { font-size: 1.8rem; }
-  .hero-layout { flex-direction: column; text-align: center; gap: 20px; }
-  .hero-photo { width: 100px; height: 130px; }
-  .hero-stats-row { justify-content: center; }
-  .hero-stat { text-align: center; }
-  .metrics-row { gap: 12px; }
-  .metric-card { min-width: 100px; padding: 12px 14px; }
-  .metric-val { font-size: 1.2rem; }
+  .nav-inner { padding: 0 12px; gap: 2px; }
+  .nav-tab { padding: 6px 13px; font-size: 0.78rem; }
+  .page { padding: calc(var(--nav-h) + 20px) 14px 40px; }
+  .hero-card { flex-direction: column; align-items: center; text-align: center; padding: 24px 18px; }
+  .hero-photo { width: 90px; height: 118px; }
+  .hero-line { margin: 10px auto; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .info-grid { grid-template-columns: 1fr; }
+  .item-grid { grid-template-columns: 1fr; }
+  .poster-panel { padding: 24px 18px 20px; max-height: 92vh; }
+  .poster-title { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
   html { font-size: 14px; }
-  .nav-inner { padding: 0 8px; gap: 2px; }
-  .nav-item { padding: 6px 10px; font-size: 0.72rem; border-radius: 16px; }
-  .pages { padding-top: var(--nav-h); }
-  .page { padding: calc(var(--nav-h) + 16px) 10px 40px; }
-  .poster { padding: 22px 14px 20px; border-radius: 8px; }
-  .poster-title { font-size: 1.4rem; }
-  .poster-sub { font-size: 0.88rem; }
-  .poster-divider { margin-bottom: 16px; }
-  .hero-photo { width: 80px; height: 104px; }
-  .hero-stats-row { gap: 18px; }
-  .hero-stat-val { font-size: 1.4rem; }
-  .desc-block { font-size: 0.86rem; }
-  .contact-links { flex-direction: column; }
+  .nav-inner { padding: 0 6px; gap: 1px; }
+  .nav-tab { padding: 5px 10px; font-size: 0.72rem; border-radius: 14px; }
+  .page { padding: calc(var(--nav-h) + 14px) 8px 32px; }
+  .hero-card { padding: 18px 12px; }
+  .hero-name { font-size: 1.5rem; }
+  .hero-photo { width: 72px; height: 94px; }
+  .stat-grid { gap: 8px; }
+  .stat-item { padding: 10px 8px; }
+  .stat-val { font-size: 1.2rem; }
+  .card { padding: 16px 14px; }
+  .card-title { font-size: 0.95rem; }
+  .poster-panel { padding: 18px 12px 16px; border-radius: 8px; }
+  .poster-title { font-size: 1.2rem; }
+  .poster-close { width: 30px; height: 30px; font-size: 0.9rem; }
+  .contact-row { flex-direction: column; }
   .contact-link, .phone-btn { width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page { transition: none; }
-  .isac-radar::after { animation: none; }
+  .info-card { padding: 14px 12px; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===== NAV ===== -->
 <nav class="nav">
-  <div class="nav-inner" id="navInner">
-    <button class="nav-item active" data-page="about">👤 关于我</button>
-    <button class="nav-item" data-page="isac">📡 ISAC天线</button>
-    <button class="nav-item" data-page="fpga">🚦 FPGA交通</button>
-    <button class="nav-item" data-page="ppo">🤖 PPO智能体</button>
-    <button class="nav-item" data-page="filter">🔬 微波滤波器</button>
-    <button class="nav-item" data-page="contact">✉️ 联系</button>
+  <div class="nav-inner">
+    <button class="nav-tab active" data-page="basic">基础信息</button>
+    <button class="nav-tab" data-page="research">科研经历</button>
+    <button class="nav-tab" data-page="projects">项目经历</button>
+    <button class="nav-tab" data-page="contact">联系方式</button>
   </div>
 </nav>
 
+<!-- ===== PAGES ===== -->
 <div class="pages">
 
-  <!-- ====== ABOUT ====== -->
-  <section class="page active" id="page-about">
-    <div class="poster">
-      <div class="hero-layout">
-        <img class="hero-photo" src="photo.jpg" alt="葛程荣" loading="eager" width="140" height="184">
-        <div class="hero-body">
-          <div class="poster-eyebrow">About Me</div>
-          <div class="poster-title">葛程荣</div>
-          <div class="poster-sub">Ge ChengRong</div>
-          <div class="poster-divider"></div>
-          <p style="font-size:0.95rem;color:var(--text-muted);line-height:1.7;">
-            南昌大学 · 信息工程学院 · 人工智能专业 2023级<br>
-            <strong style="color:var(--text);">AI × 嵌入式系统</strong> | 端侧感知 | Agent / LLM 应用
-          </p>
-          <div class="hero-stats-row">
-            <div class="hero-stat">
-              <div class="hero-stat-val">3.75<span class="hero-stat-unit">/4.0</span></div>
-              <div class="hero-stat-lbl">GPA</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-val">1<span class="hero-stat-unit">/35</span></div>
-              <div class="hero-stat-lbl">专业排名</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-val">10+</div>
-              <div class="hero-stat-lbl">竞赛获奖</div>
-            </div>
-          </div>
-          <div class="citation-badge">Ge C. — AI × Embedded Systems Explorer, Nanchang University</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ========== 基础信息 ========== -->
+<section class="page active" id="page-basic">
+<div class="page-inner">
 
-  <!-- ====== ISAC ANTENNA ====== -->
-  <section class="page" id="page-isac">
-    <div class="poster">
-      <div class="isac-wave"></div>
-      <div class="isac-radar"></div>
-      <div class="poster-eyebrow">Research · Electromagnetics</div>
-      <div class="poster-title">可重构多模式柔性 ISAC 天线</div>
-      <div class="poster-sub">Reconfigurable Multi-Mode Flexible ISAC Antenna</div>
-      <div class="poster-divider"></div>
-
-      <div class="metrics-row">
-        <div class="metric-card">
-          <div class="metric-val">4</div>
-          <div class="metric-lbl">频率模式</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">BDS/WLAN/WiMAX</div>
-          <div class="metric-lbl">覆盖频段</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">IEEE IoT-J</div>
-          <div class="metric-lbl">拟投期刊</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">柔性</div>
-          <div class="metric-lbl">弯曲稳定</div>
-        </div>
-      </div>
-
-      <p class="desc-block">
-        面向车联网 IoV 场景，设计<strong style="color:var(--text);">三角环型柔性贴片天线</strong>，
-        在三条边加载 3 个 PIN 二极管，通过调控导通/截止状态改变等效电长度，
-        实现 4 种频率可重构工作模式。覆盖 BDS、WLAN、WiMAX 等关键频段，
-        弯曲状态下保持稳定阻抗匹配与辐射方向图。
+  <div class="hero-card">
+    <img class="hero-photo" src="photo.jpg" alt="葛程荣" loading="eager" width="110" height="144">
+    <div class="hero-body">
+      <div class="hero-name">葛程荣</div>
+      <div class="hero-en">Ge ChengRong</div>
+      <div class="hero-line"></div>
+      <p class="hero-info">
+        南昌大学 · 信息工程学院 · 人工智能专业 2023级<br>
+        <strong>AI × 嵌入式系统</strong> | 端侧感知 | Agent / LLM 应用<br>
+        班长 · 人工智能创新创业基地负责人
       </p>
-
-      <div class="tags-row">
-        <span class="tag-pill">HFSS 建模</span>
-        <span class="tag-pill">参数扫描优化</span>
-        <span class="tag-pill">弯曲性能验证</span>
-        <span class="tag-pill">Origin 作图</span>
-        <span class="tag-pill">英文论文写作</span>
-        <span class="tag-pill">文献调研</span>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-val">3.75<span style="font-size:0.45em;font-weight:400;">/4.0</span></div>
+          <div class="stat-lbl">GPA</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">1<span style="font-size:0.4em;font-weight:400;">/35</span></div>
+          <div class="stat-lbl">专业排名</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">CET-4<span style="font-size:0.4em;font-weight:400;"> 476</span></div>
+          <div class="stat-lbl">英语四级</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">CET-6<span style="font-size:0.4em;font-weight:400;"> 423</span></div>
+          <div class="stat-lbl">英语六级</div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ====== FPGA TRAFFIC ====== -->
-  <section class="page" id="page-fpga">
-    <div class="poster">
-      <div class="fpga-grid"></div>
-      <div class="fpga-chip"></div>
-      <div class="poster-eyebrow">Project · Embedded AI</div>
-      <div class="poster-title">FPGA-RK3568 端侧智能交通系统</div>
-      <div class="poster-sub">Heterogeneous Edge Perception System</div>
-      <div class="poster-divider"></div>
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🏅 奖学金与荣誉</h3>
+      <ul class="honor-list">
+        <li>连续两年 <strong>校级特等奖学金</strong></li>
+        <li>连续两年 <strong>三好学生标兵</strong></li>
+        <li>泰豪之星 · 优秀大学生提名奖</li>
+        <li>南昌大学 <strong>五四优秀共青团员</strong></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>🏆 竞赛获奖</h3>
+      <ul class="honor-list">
+        <li>RAICOM 机器人开发者大赛 <strong>全国二等奖</strong></li>
+        <li>蓝桥杯 C/C++ 大学A组 <strong>省一等奖、全国三等奖</strong></li>
+        <li>嵌入式芯片与系统设计竞赛 FPGA 赛道 <strong>全国三等奖</strong></li>
+        <li>iCAN 大学生创新创业大赛 <strong>江西赛区一等奖</strong></li>
+        <li>集成电路创新创业大赛 <strong>华中赛区三等奖</strong></li>
+        <li>全国大学生智能汽车竞赛 <strong>分区三等奖</strong></li>
+        <li>全球校园AI算法精英大赛 <strong>国家级三等奖</strong></li>
+        <li>全国大学生数学竞赛 非数学A类 <strong>一等奖</strong></li>
+        <li>全国大学生数学建模竞赛 <strong>省级三等奖</strong></li>
+      </ul>
+    </div>
+  </div>
 
-      <div class="metrics-row">
-        <div class="metric-card">
-          <div class="metric-val">盘古50K</div>
-          <div class="metric-lbl">FPGA 型号</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">RK3568</div>
-          <div class="metric-lbl">ARM 处理器</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">PCIe DMA</div>
-          <div class="metric-lbl">数据链路</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">YOLO+OCR</div>
-          <div class="metric-lbl">感知模型</div>
-        </div>
-      </div>
+  <div class="citation" style="margin-top:20px;">Ge C. — AI × Embedded Systems Explorer, Nanchang University</div>
+</div>
+</section>
 
-      <p class="desc-block">
-        设计 <strong style="color:var(--text);">FPGA + RK3568 异构感知系统</strong>：
-        FPGA 端进行图像采集与 YOLO 视觉模型推理加速，
-        通过 PCIe DMA 高速传输至 RK3568 ARM 端完成后处理、OCR 识别与违规判断。
-        重点攻克 PCIe 数据链路设计、DMA 读写一致性、多模型部署与系统联调。
-      </p>
+<!-- ========== 科研经历 ========== -->
+<section class="page" id="page-research">
+<div class="page-inner">
+  <div class="section-label">Research</div>
 
-      <div class="tags-row">
-        <span class="tag-pill">FPGA</span>
-        <span class="tag-pill">Verilog</span>
-        <span class="tag-pill">PCIe DMA</span>
-        <span class="tag-pill">RK3568</span>
-        <span class="tag-pill">Linux</span>
-        <span class="tag-pill">YOLO</span>
-        <span class="tag-pill">OpenCV</span>
-        <span class="tag-pill">系统联调</span>
+  <div class="item-grid single">
+    <!-- ISAC -->
+    <div class="card" onclick="openPoster('isac')">
+      <div class="card-sub">拟投 IEEE Internet of Things Journal</div>
+      <div class="card-title">可重构多模式柔性车联网天线</div>
+      <div class="card-desc">面向车联网 IoV 场景，设计三角环型柔性贴片天线，3 个 PIN 二极管实现 4 种频率可重构模式，覆盖 BDS / WLAN / WiMAX 频段。</div>
+      <div class="card-tags"><span class="tag">HFSS</span><span class="tag">Origin</span><span class="tag">电磁仿真</span><span class="tag">柔性天线</span><span class="tag">论文写作</span></div>
+    </div>
+
+    <!-- 滤波器大创 -->
+    <div class="card" onclick="openPoster('filter')">
+      <div class="card-sub">省级大创 · 项目负责人</div>
+      <div class="card-title">基于人工智能的微波滤波器设计方法研究</div>
+      <div class="card-desc">省级大创。利用深度学习替代传统全波仿真，构建滤波器参数预测与优化流程，提高几何参数寻优效率。</div>
+      <div class="card-tags"><span class="tag">PyTorch</span><span class="tag">HFSS</span><span class="tag">MATLAB</span><span class="tag">深度学习</span><span class="tag">参数优化</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========== 项目经历 ========== -->
+<section class="page" id="page-projects">
+<div class="page-inner">
+  <div class="section-label">Projects</div>
+
+  <div class="item-grid">
+    <div class="card" onclick="openPoster('fpga')">
+      <div class="card-sub">FPGA · RK3568 · PCIe DMA</div>
+      <div class="card-title">FPGA-RK3568 端侧智能交通系统</div>
+      <div class="card-desc">FPGA 端 YOLO 推理加速 + RK3568 后处理与 OCR，异构架构端侧感知。</div>
+      <div class="card-tags"><span class="tag">YOLO</span><span class="tag">OCR</span><span class="tag">Linux</span><span class="tag">Verilog</span></div>
+    </div>
+
+    <div class="card" onclick="openPoster('ppo')">
+      <div class="card-sub">PPO · 行为克隆 · Android ADB</div>
+      <div class="card-title">视觉强化学习智能体训练系统</div>
+      <div class="card-desc">Android 跑酷游戏 AI，截屏 ~20ms，BC 82%+，PPO 奖励从 -10 提升至 10.89。</div>
+      <div class="card-tags"><span class="tag">PPO</span><span class="tag">CNN</span><span class="tag">Python</span></div>
+    </div>
+
+    <div class="card" onclick="openPoster('oct')">
+      <div class="card-sub">CNN · SE Attention · 医学影像</div>
+      <div class="card-title">OCT 眼底疾病八分类</div>
+      <div class="card-desc">残差结构 + 注意力机制多轮迭代，测试集 Accuracy 96.54%，F1 96.54%。</div>
+      <div class="card-tags"><span class="tag">PyTorch</span><span class="tag">ResNet</span><span class="tag">医学影像</span></div>
+    </div>
+
+    <div class="card" onclick="openPoster('bone')">
+      <div class="card-sub">YOLOv5/v8/11 · Faster R-CNN · Mask R-CNN</div>
+      <div class="card-title">骨骼 X 光片骨折检测模型对比</div>
+      <div class="card-desc">单阶段 vs 两阶段检测器横向对比，分析精度、参数量、推理速度的取舍关系。</div>
+      <div class="card-tags"><span class="tag">YOLO</span><span class="tag">Faster R-CNN</span><span class="tag">对比研究</span></div>
+    </div>
+
+    <div class="card" onclick="openPoster('rag')">
+      <div class="card-sub">LangChain · Chroma/FAISS · DeepSeek</div>
+      <div class="card-title">RAG 知识库与 ReAct Agent 系统</div>
+      <div class="card-desc">个人知识库助手 + ReAct Agent，支持 PDF/TXT 上传、向量检索、工具调用与长期记忆。</div>
+      <div class="card-tags"><span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">Agent</span><span class="tag">Gradio</span></div>
+    </div>
+
+    <div class="card" onclick="openPoster('mllm')">
+      <div class="card-sub">MiniMind-O · RTX 4060 · 本地部署</div>
+      <div class="card-title">多模态大语言模型本地部署与实践</div>
+      <div class="card-desc">本地部署轻量级 Omni 多模态模型，验证文本/图像/语音理解与流式语音输出能力边界。</div>
+      <div class="card-tags"><span class="tag">MLLM</span><span class="tag">多模态</span><span class="tag">本地推理</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========== 联系方式 ========== -->
+<section class="page" id="page-contact">
+<div class="page-inner">
+  <div class="hero-card" style="flex-direction:column;align-items:flex-start;text-align:left;">
+    <div class="section-label">Contact</div>
+    <div class="hero-name" style="font-size:1.6rem;">联系方式</div>
+    <div class="hero-en">欢迎联系交流</div>
+    <div class="hero-line"></div>
+    <div class="contact-row">
+      <a href="mailto:gechengrong163@163.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+        gechengrong163@163.com
+      </a>
+      <a href="https://github.com/Blankname-12" class="contact-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+        Blankname-12
+      </a>
+      <button class="phone-btn" id="phoneBtn" onclick="revealPhone()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+        <span id="phoneText">点击查看手机号 / 微信</span>
+      </button>
+    </div>
+    <div class="citation">Ge C. — AI × Embedded Systems Explorer, Nanchang University</div>
+  </div>
+</div>
+</section>
+
+</div><!-- /pages -->
+
+<!-- ============================================== -->
+<!-- ===== POSTER OVERLAYS (科研 + 项目 详情) ===== -->
+<!-- ============================================== -->
+
+<!-- ISAC -->
+<div class="poster-overlay" id="poster-isac">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('isac')">✕</button>
+    <div class="poster-eyebrow">Research · Electromagnetics</div>
+    <div class="poster-title">可重构多模式柔性车联网天线</div>
+    <div class="poster-sub">Reconfigurable Multi-Mode Flexible ISAC Antenna · 拟投 IEEE IoT-J</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>面向车联网 IoV 场景，设计三角环型柔性贴片天线。在天线三条边加载 3 个 PIN 二极管，通过调控导通/截止状态改变等效电长度，实现 4 种频率可重构工作模式。覆盖 BDS、WLAN、WiMAX 等关键频段，弯曲状态下保持稳定阻抗匹配与辐射方向图。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>核心图片</h4>
+      <div class="img-placeholder">📐 天线结构示意图 · 回波损耗 S₁₁ 曲线 · 辐射方向图<br><small>（请替换为实际图片）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>方法论 / 技术路线</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  1. 天线结构设计                       │
+│     · 三角环型贴片 + PIN 二极管加载    │
+│     · 4 种导通/截止组合 → 4 种模式    │
+│  2. HFSS 全波仿真                     │
+│     · 建模 → 参数扫描 → 优化          │
+│     · S 参数 / 方向图 / 增益分析      │
+│  3. 柔性性能验证                      │
+│     · 不同弯曲半径下的性能稳定性测试   │
+│  4. Origin 数据可视化 + 英文论文写作   │
+└──────────────────────────────────────┘
       </div>
     </div>
-  </section>
 
-  <!-- ====== PPO AGENT ====== -->
-  <section class="page" id="page-ppo">
-    <div class="poster">
-      <div class="ppo-nodes" aria-hidden="true">
-        <div class="ppo-dot" style="top:10%;left:20%"></div>
-        <div class="ppo-dot" style="top:10%;left:50%"></div>
-        <div class="ppo-dot" style="top:10%;left:80%"></div>
-        <div class="ppo-dot" style="top:40%;left:10%"></div>
-        <div class="ppo-dot" style="top:40%;left:35%"></div>
-        <div class="ppo-dot" style="top:40%;left:65%"></div>
-        <div class="ppo-dot" style="top:40%;left:90%"></div>
-        <div class="ppo-dot" style="top:70%;left:25%"></div>
-        <div class="ppo-dot" style="top:70%;left:50%"></div>
-        <div class="ppo-dot" style="top:70%;left:75%"></div>
-        <div class="ppo-dot" style="top:90%;left:30%"></div>
-        <div class="ppo-dot" style="top:90%;left:60%"></div>
-      </div>
-      <div class="poster-eyebrow">Project · Reinforcement Learning</div>
-      <div class="poster-title">视觉强化学习智能体训练系统</div>
-      <div class="poster-sub">Android RL Agent — PPO + Behavioral Cloning</div>
-      <div class="poster-divider"></div>
-
-      <div class="metrics-row">
-        <div class="metric-card">
-          <div class="metric-val">~20ms</div>
-          <div class="metric-lbl">截屏延迟</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">~5ms</div>
-          <div class="metric-lbl">触控延迟</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">82%+</div>
-          <div class="metric-lbl">BC 准确率</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">10.89</div>
-          <div class="metric-lbl">PPO 平均奖励</div>
-        </div>
-      </div>
-
-      <p class="desc-block">
-        构建面向真实 Android 跑酷游戏的 <strong style="color:var(--text);">视觉智能体训练系统</strong>：
-        minicap 实现 ~20ms/帧高速截屏，FastTouch 将触控注入延迟从 ~182ms 降至 ~5ms；
-        人工采集数据进行 CNN 行为克隆预训练，再通过 PPO 在线强化学习微调，
-        平均奖励从 -10.0 提升至 10.89，实现从零到通关的自主进化。
-      </p>
-
-      <div class="tags-row">
-        <span class="tag-pill">PPO</span>
-        <span class="tag-pill">CNN</span>
-        <span class="tag-pill">行为克隆</span>
-        <span class="tag-pill">Android ADB</span>
-        <span class="tag-pill">minicap</span>
-        <span class="tag-pill">FastTouch</span>
-        <span class="tag-pill">Python</span>
+    <div class="poster-section">
+      <h4>关键指标</h4>
+      <div class="stat-grid" style="grid-template-columns: repeat(4,1fr);">
+        <div class="stat-item"><div class="stat-val">4</div><div class="stat-lbl">频率模式</div></div>
+        <div class="stat-item"><div class="stat-val">BDS/WLAN/WiMAX</div><div class="stat-lbl">覆盖频段</div></div>
+        <div class="stat-item"><div class="stat-val">柔性</div><div class="stat-lbl">弯曲稳定</div></div>
+        <div class="stat-item"><div class="stat-val">IEEE IoT-J</div><div class="stat-lbl">拟投期刊</div></div>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- ====== MICROWAVE FILTER ====== -->
-  <section class="page" id="page-filter">
-    <div class="poster">
-      <div class="filter-bars" aria-hidden="true">
-        <div class="filter-bar" style="height:40%"></div>
-        <div class="filter-bar" style="height:65%"></div>
-        <div class="filter-bar" style="height:30%"></div>
-        <div class="filter-bar" style="height:80%"></div>
-        <div class="filter-bar" style="height:55%"></div>
-        <div class="filter-bar" style="height:25%"></div>
-        <div class="filter-bar" style="height:70%"></div>
-        <div class="filter-bar" style="height:45%"></div>
-      </div>
-      <div class="poster-eyebrow">Research · AI for Electromagnetics</div>
-      <div class="poster-title">AI 驱动的微波滤波器设计</div>
-      <div class="poster-sub">Deep Learning Assisted Microwave Filter Optimization</div>
-      <div class="poster-divider"></div>
+<!-- 滤波器 -->
+<div class="poster-overlay" id="poster-filter">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('filter')">✕</button>
+    <div class="poster-eyebrow">Research · AI for Engineering</div>
+    <div class="poster-title">基于人工智能的微波滤波器设计方法研究</div>
+    <div class="poster-sub">Deep Learning Assisted Microwave Filter Optimization · 省级大创</div>
+    <div class="poster-divider"></div>
 
-      <div class="metrics-row">
-        <div class="metric-card">
-          <div class="metric-val">省级</div>
-          <div class="metric-lbl">大创级别</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">负责人</div>
-          <div class="metric-lbl">项目角色</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">PyTorch+HFSS</div>
-          <div class="metric-lbl">核心技术栈</div>
-        </div>
-      </div>
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>面向传统微波滤波器设计中全波仿真耗时、参数调试依赖经验的痛点，探索利用深度学习与智能优化方法构建滤波器参数预测与优化流程。以神经网络代理模型辅助替代部分重复仿真，提高几何参数寻优效率。作为项目负责人，统筹项目推进、HFSS 建模仿真、数据整理与优化结果分析。</p>
+    </div>
 
-      <p class="desc-block">
-        面向传统微波滤波器设计中<strong style="color:var(--text);">全波仿真耗时、参数调试依赖经验</strong>的痛点，
-        探索利用深度学习与智能优化方法构建滤波器参数预测与优化流程。
-        以神经网络模型辅助替代部分重复仿真，提高几何参数寻优效率，
-        负责 HFSS 建模仿真、数据整理与优化结果分析。
-      </p>
+    <div class="poster-section">
+      <h4>核心图片</h4>
+      <div class="img-placeholder">📊 滤波器结构图 · 频率响应 S 参数曲线 · 优化迭代收敛图<br><small>（请替换为实际图片）</small></div>
+    </div>
 
-      <div class="tags-row">
-        <span class="tag-pill">PyTorch</span>
-        <span class="tag-pill">HFSS</span>
-        <span class="tag-pill">MATLAB</span>
-        <span class="tag-pill">深度学习</span>
-        <span class="tag-pill">参数优化</span>
-        <span class="tag-pill">电磁仿真</span>
+    <div class="poster-section">
+      <h4>技术路线</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  1. HFSS 全波仿真 → 训练数据集生成    │
+│  2. 神经网络代理模型训练              │
+│     · 输入：几何参数                  │
+│     · 输出：S 参数 / 频率响应预测     │
+│  3. 智能优化算法（GA/PSO 等）        │
+│     · 替代重复仿真，加速寻优         │
+│  4. 优化结果验证与对比分析            │
+│     · 与传统全波仿真结果对比          │
+└──────────────────────────────────────┘
       </div>
     </div>
-  </section>
 
-  <!-- ====== CONTACT ====== -->
-  <section class="page" id="page-contact">
-    <div class="poster">
-      <div class="poster-eyebrow">Get In Touch</div>
-      <div class="poster-title">联系方式</div>
-      <div class="poster-sub">欢迎联系交流</div>
-      <div class="poster-divider"></div>
-
-      <div class="contact-links">
-        <a href="mailto:gechengrong163@163.com" class="contact-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-          gechengrong163@163.com
-        </a>
-        <a href="https://github.com/Blankname-12" class="contact-link" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
-          Blankname-12
-        </a>
-        <button class="phone-btn" id="phoneBtn" onclick="revealPhone()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-          <span id="phoneText">📱 点击查看手机号 / 微信</span>
-        </button>
+    <div class="poster-section">
+      <h4>关键信息</h4>
+      <div class="stat-grid" style="grid-template-columns: repeat(3,1fr);">
+        <div class="stat-item"><div class="stat-val">省级</div><div class="stat-lbl">大创级别</div></div>
+        <div class="stat-item"><div class="stat-val">负责人</div><div class="stat-lbl">项目角色</div></div>
+        <div class="stat-item"><div class="stat-val">PyTorch+HFSS</div><div class="stat-lbl">核心技术栈</div></div>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
+<!-- FPGA -->
+<div class="poster-overlay" id="poster-fpga">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('fpga')">✕</button>
+    <div class="poster-eyebrow">Project · Embedded AI</div>
+    <div class="poster-title">FPGA-RK3568 端侧智能交通系统</div>
+    <div class="poster-sub">Heterogeneous Edge Perception · 盘古50K + RK3568</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>设计 FPGA + RK3568 异构感知系统：FPGA 端进行图像采集与 YOLO 视觉模型推理加速，通过 PCIe DMA 高速传输至 RK3568 ARM 端完成后处理、OCR 车牌识别与违规判断。重点攻克 PCIe 数据链路设计、DMA 读写一致性、多模型部署与系统联调。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>系统架构图</h4>
+      <div class="img-placeholder">🔧 异构系统架构框图 · 数据流示意图 · 实物图<br><small>（请替换为实际图片）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>技术架构</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  Camera ──→ FPGA（盘古50K）           │
+│              · 图像采集               │
+│              · YOLO 推理加速          │
+│              · PCIe DMA 发送         │
+│                   ↓ PCIe             │
+│              RK3568（ARM）            │
+│              · Linux 应用层          │
+│              · YOLO 后处理           │
+│              · OCR 车牌识别          │
+│              · 违规判断              │
+│              · 视频帧显示            │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="poster-section">
+      <h4>实现效果</h4>
+      <div class="img-placeholder">📸 系统运行截图 · 检测结果可视化 · 识别效果展示<br><small>（请替换为实际截图）</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- PPO -->
+<div class="poster-overlay" id="poster-ppo">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('ppo')">✕</button>
+    <div class="poster-eyebrow">Project · Reinforcement Learning</div>
+    <div class="poster-title">视觉强化学习智能体训练系统</div>
+    <div class="poster-sub">Android RL Agent · PPO + Behavioral Cloning</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>构建面向真实 Android 跑酷游戏的视觉智能体训练系统：minicap 实现 ~20ms/帧高速截屏，FastTouch 将触控注入延迟从 ~182ms 降至 ~5ms；人工采集数据进行 CNN 行为克隆预训练，再通过 PPO 在线强化学习微调，平均奖励从 -10.0 提升至 10.89，实现从零到通关的自主进化。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>训练曲线 / 效果展示</h4>
+      <div class="img-placeholder">📈 PPO 奖励收敛曲线 · 智能体游戏操作可视化 · 行为克隆 vs PPO 对比<br><small>（请替换为实际截图/图表）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>系统架构</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  Android 模拟器 / 真机               │
+│       ↕ ADB                          │
+│  ┌─────────────────────────────┐    │
+│  │  数据采集层                   │    │
+│  │  · minicap 截屏 (~20ms)     │    │
+│  │  · FastTouch 触控 (~5ms)    │    │
+│  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐    │
+│  │  训练层                       │    │
+│  │  · CNN 行为克隆预训练        │    │
+│  │  · PPO 在线微调              │    │
+│  │  · 奖励函数设计              │    │
+│  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐    │
+│  │  可视化系统                   │    │
+│  │  · 实时奖励曲线              │    │
+│  │  · 操作热力图                │    │
+│  └─────────────────────────────┘    │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="poster-section">
+      <h4>关键指标</h4>
+      <div class="stat-grid" style="grid-template-columns: repeat(4,1fr);">
+        <div class="stat-item"><div class="stat-val">~20ms</div><div class="stat-lbl">截屏延迟</div></div>
+        <div class="stat-item"><div class="stat-val">~5ms</div><div class="stat-lbl">触控延迟</div></div>
+        <div class="stat-item"><div class="stat-val">82%+</div><div class="stat-lbl">BC准确率</div></div>
+        <div class="stat-item"><div class="stat-val">10.89</div><div class="stat-lbl">PPO平均奖励</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OCT -->
+<div class="poster-overlay" id="poster-oct">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('oct')">✕</button>
+    <div class="poster-eyebrow">Project · Medical Imaging</div>
+    <div class="poster-title">OCT 眼底疾病八分类</div>
+    <div class="poster-sub">CNN + Residual Block + SE Attention</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>围绕 OCT-C8 眼底图像八分类任务，完成基础 CNN、Dropout/BatchNorm、残差结构与 SE 注意力机制等多轮模型迭代；最优模型在测试集达到 96.54% Accuracy、96.59% Precision、96.54% Recall 和 96.54% F1。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>模型结构 / 结果可视化</h4>
+      <div class="img-placeholder">🖼️ OCT 眼底图像样本 · 混淆矩阵 · Grad-CAM 热力图 · 模型结构图<br><small>（请替换为实际图片）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>模型迭代路线</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  Baseline CNN                        │
+│      ↓                               │
+│  + Dropout + BatchNorm               │
+│      ↓                               │
+│  + Residual Block（残差结构）        │
+│      ↓                               │
+│  + SE Attention（通道注意力）        │
+│      ↓                               │
+│  最优模型：Acc 96.54% / F1 96.54%   │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="poster-section">
+      <h4>关键指标</h4>
+      <div class="stat-grid" style="grid-template-columns: repeat(4,1fr);">
+        <div class="stat-item"><div class="stat-val">96.54%</div><div class="stat-lbl">Accuracy</div></div>
+        <div class="stat-item"><div class="stat-val">96.59%</div><div class="stat-lbl">Precision</div></div>
+        <div class="stat-item"><div class="stat-val">96.54%</div><div class="stat-lbl">Recall</div></div>
+        <div class="stat-item"><div class="stat-val">96.54%</div><div class="stat-lbl">F1 Score</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 骨折检测 -->
+<div class="poster-overlay" id="poster-bone">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('bone')">✕</button>
+    <div class="poster-eyebrow">Project · Object Detection</div>
+    <div class="poster-title">骨骼 X 光片骨折检测模型对比研究</div>
+    <div class="poster-sub">YOLO Series vs Faster R-CNN vs Mask R-CNN</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>针对骨折 X 光片检测任务，对 YOLOv5 / YOLOv8 / YOLO11 等单阶段检测器与 Faster R-CNN、Mask R-CNN 等两阶段模型进行横向对比，系统分析检测精度（mAP）、参数量、计算量（FLOPs）与推理速度之间的取舍关系。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>检测结果对比</h4>
+      <div class="img-placeholder">🦴 骨折检测结果可视化 · PR 曲线 · 模型对比柱状图<br><small>（请替换为实际图片）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>对比框架</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  单阶段检测器                         │
+│  · YOLOv5 · YOLOv8 · YOLO11         │
+│        VS                            │
+│  两阶段检测器                         │
+│  · Faster R-CNN · Mask R-CNN        │
+│                                      │
+│  对比维度：                           │
+│  · mAP / Recall · Params / FLOPs    │
+│  · FPS · 小目标检测能力              │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RAG -->
+<div class="poster-overlay" id="poster-rag">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('rag')">✕</button>
+    <div class="poster-eyebrow">Project · LLM Application</div>
+    <div class="poster-title">RAG 知识库与 ReAct Agent 系统</div>
+    <div class="poster-sub">LangChain · Chroma/FAISS · DeepSeek API</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>搭建支持 PDF/TXT 上传、文本分块、向量化、Top-K 检索与问答生成的个人知识库助手，并基于 ReAct 框架实现具备工具调用、短期对话记忆与长期偏好记忆的对话式 Agent。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>界面 / 效果展示</h4>
+      <div class="img-placeholder">💬 Gradio 对话界面截图 · 检索结果高亮展示 · Agent 工具调用流程图<br><small>（请替换为实际截图）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>系统架构</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  Gradio Web UI                       │
+│       ↓                              │
+│  ┌─────────────────────────────┐    │
+│  │  RAG 知识库                  │    │
+│  │  · PDF/TXT → 分块 → 向量化  │    │
+│  │  · Chroma/FAISS 向量存储    │    │
+│  │  · Top-K 检索 + 问答生成    │    │
+│  └─────────────────────────────┘    │
+│  ┌─────────────────────────────┐    │
+│  │  ReAct Agent                 │    │
+│  │  · Thought → Action → Obs   │    │
+│  │  · 工具调用（搜索/计算等）   │    │
+│  │  · 短期记忆 + 长期偏好记忆  │    │
+│  └─────────────────────────────┘    │
+│       ↓                              │
+│  DeepSeek API（LLM 推理）            │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MLLM -->
+<div class="poster-overlay" id="poster-mllm">
+  <div class="poster-panel">
+    <button class="poster-close" onclick="closePoster('mllm')">✕</button>
+    <div class="poster-eyebrow">Project · Multimodal LLM</div>
+    <div class="poster-title">多模态大语言模型本地部署与实践</div>
+    <div class="poster-sub">MiniMind-O · RTX 4060 · 文本/图像/语音</div>
+    <div class="poster-divider"></div>
+
+    <div class="poster-section">
+      <h4>摘要</h4>
+      <p>在本地 Windows + RTX 4060 环境中部署轻量级 Omni 多模态模型 MiniMind-O，完成文本、图像、语音输入理解与流式语音输出测试，并分析小参数量模型在视觉理解、语音生成与多轮对话中的能力边界。</p>
+    </div>
+
+    <div class="poster-section">
+      <h4>效果展示</h4>
+      <div class="img-placeholder">🖥️ 本地部署运行截图 · 多模态输入输出示例 · 能力边界分析表<br><small>（请替换为实际截图）</small></div>
+    </div>
+
+    <div class="poster-section">
+      <h4>技术架构</h4>
+      <div class="framework-box">
+┌──────────────────────────────────────┐
+│  MiniMind-O（轻量级 Omni 模型）      │
+│                                      │
+│  输入模态：                           │
+│  · 文本（Text）                      │
+│  · 图像（Image）                     │
+│  · 语音（Audio）                     │
+│       ↓                              │
+│  多模态融合 → LLM 推理               │
+│       ↓                              │
+│  输出模态：                           │
+│  · 文本回复                          │
+│  · 流式语音合成（TTS）               │
+│                                      │
+│  部署环境：                           │
+│  · Windows + RTX 4060（8GB）        │
+│  · 本地推理，无需云端                │
+└──────────────────────────────────────┘
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-function revealPhone() {
-  const btn = document.getElementById('phoneBtn');
-  const text = document.getElementById('phoneText');
-  const revealed = btn.classList.toggle('revealed');
-  text.textContent = revealed
-    ? '19579475667（微信同号）'
-    : '📱 点击查看手机号 / 微信';
-}
-
 // Page switching
-const navItems = document.querySelectorAll('.nav-item');
-const pages = document.querySelectorAll('.page');
-
-navItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const target = item.dataset.page;
-    if (!target) return;
-
-    navItems.forEach(n => n.classList.remove('active'));
-    item.classList.add('active');
-
-    pages.forEach(p => {
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.page;
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.page').forEach(p => {
       p.classList.remove('active');
       if (p.id === 'page-' + target) p.classList.add('active');
     });
   });
+});
+
+// Phone toggle
+function revealPhone() {
+  const btn = document.getElementById('phoneBtn');
+  const text = document.getElementById('phoneText');
+  const revealed = btn.classList.toggle('revealed');
+  text.textContent = revealed ? '19579475667（微信同号）' : '点击查看手机号 / 微信';
+}
+
+// Poster open/close
+function openPoster(id) {
+  document.getElementById('poster-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePoster(id) {
+  document.getElementById('poster-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close poster on overlay click
+document.querySelectorAll('.poster-overlay').forEach(overlay => {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+// Close poster on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.poster-overlay.open').forEach(o => {
+      o.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
 });
 </script>
 
